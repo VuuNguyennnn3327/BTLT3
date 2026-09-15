@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopVN - Đăng ký tài khoản</title>
+    <link rel="stylesheet" href="C5.css">
+</head>
+<body>
+
+    <main>
+        <section>
+            <div class="form-header">
+                <div class="brand-icon">🛍️</div>
+                <h1>Đăng ký tài khoản mới</h1>
+                <p class="form-subtitle">Điền thông tin bên dưới để trở thành thành viên ưu tiên của ShopVN</p>
+            </div>
+
+            <form action="xu_ly_dangky.php" method="POST" enctype="multipart/form-data" name="formDangKy" id="formDangKy">
+                
+                <!-- Fieldset 1: Thông tin cơ bản -->
+                <fieldset>
+                    <legend>👤 Thông tin cơ bản</legend>
+                    
+                    <div class="form-group">
+                        <label for="hoten">Họ và tên:<span class="required-mark">*</span></label>
+                        <input type="text" name="hoten" id="hoten" placeholder="Nguyễn Văn An" required maxlength="100">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email:<span class="required-mark">*</span></label>
+                        <input type="email" name="email" id="email" placeholder="example@gmail.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="matkhau">Mật khẩu:<span class="required-mark">*</span></label>
+                        <input type="password" name="matkhau" id="matkhau" minlength="8" required placeholder="Tối thiểu 8 ký tự">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="sdt">Số điện thoại:</label>
+                        <input type="tel" name="sdt" id="sdt" pattern="[0-9]{10}" placeholder="0901234567">
+                    </div>
+                </fieldset>
+
+                <!-- Fieldset 2: Thông tin cá nhân -->
+                <fieldset>
+                    <legend>📋 Thông tin cá nhân</legend>
+                    
+                    <div class="form-group">
+                        <label for="tuoi">Tuổi:</label>
+                        <input type="number" name="tuoi" id="tuoi" min="16" max="99" step="1" value="18">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ngaysinh">Ngày sinh:</label>
+                        <input type="date" name="ngaysinh" id="ngaysinh" min="1950-01-01" max="2010-12-31" value="2005-01-01">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Giới tính:</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="gioitinh" id="gt_nam" value="nam"> Nam</label>
+                            <label><input type="radio" name="gioitinh" id="gt_nu" value="nu" checked> Nữ</label>
+                            <label><input type="radio" name="gioitinh" id="gt_khac" value="khac"> Khác</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mauua">Màu yêu thích:</label>
+                        <input type="color" name="mauua" id="mauua" value="#FF6B6B">
+                    </div>
+                </fieldset>
+
+                <!-- Fieldset 3: Sở thích & Cài đặt -->
+                <fieldset>
+                    <legend>⚙️ Sở thích &amp; Cài đặt</legend>
+                    
+                    <div class="form-group">
+                        <label for="soikim">Tìm kiếm sở thích:</label>
+                        <input type="search" name="soikim" id="soikim" placeholder="Ví dụ: đọc sách, chơi game...">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Sở thích (chọn nhiều):</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="st_docsinh" id="st_doc" value="doc" checked> Đọc sách</label>
+                            <label><input type="checkbox" name="st_game" id="st_game" value="game"> Chơi game</label>
+                            <label><input type="checkbox" name="st_du_lich" id="st_dulich" value="dulich" checked> Du lịch</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="chitieu">Mức chi tiêu/tháng:</label>
+                        <div class="range-container">
+                            <input type="range" name="chitieu" id="chitieu" min="0" max="50000000" step="500000" value="5000000" oninput="document.getElementById('chitieu_disp').innerText = Number(this.value).toLocaleString('vi-VN') + ' VNĐ'">
+                            <span class="range-val" id="chitieu_disp">5.000.000 VNĐ</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="website">Website cá nhân:</label>
+                        <input type="url" name="website" id="website" placeholder="https://example.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="avatar">Ảnh đại diện:</label>
+                        <input type="file" name="avatar" id="avatar" accept="image/png, image/jpeg">
+                    </div>
+                </fieldset>
+
+                <div class="button-group">
+                    <input type="submit" value="Đăng ký ngay">
+                    <input type="reset" value="Nhập lại">
+                </div>
+            </form>
+        </section>
+    </main>
+
+</body>
+</html>

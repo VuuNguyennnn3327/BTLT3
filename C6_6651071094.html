@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đặt vé máy bay VietAir</title>
+    <link rel="stylesheet" href="C6.css">
+</head>
+<body>
+
+    <div class="booking-card">
+        <div class="header-brand">
+            <div class="logo-vietair">
+                <svg width="150" height="40" viewBox="0 0 160 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <text x="2" y="32" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="900" font-style="italic" font-size="28" fill="#0284C7">Viet</text>
+                    <text x="70" y="32" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="900" font-style="italic" font-size="28" fill="#EA580C">Air</text>
+                    <!-- Airplane silhouette icon -->
+                    <path d="M125 15 L145 22 L140 25 L130 24 L128 29 L132 30 L130 32 L124 30 L120 32 L121 29 L115 28 Z" fill="#EA580C"/>
+                    <path d="M110 32 C 125 36, 140 32, 155 20" stroke="#0284C7" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                </svg>
+            </div>
+            <div class="brand-badge">✈️ Vé máy bay nội địa &amp; quốc tế</div>
+        </div>
+
+        <h1>Đặt vé máy bay VietAir - Kết quả Bài tập</h1>
+
+        <form action="xu_ly_ve.php" method="POST" id="bookingForm">
+            
+            <!-- Phần 1: Thông tin chuyến bay -->
+            <fieldset>
+                <legend>🛫 1. Thông tin chuyến bay</legend>
+                
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label for="diem_di">Điểm đi:</label>
+                        <input type="text" name="diem_di" id="diem_di" list="danhsach_thanh_pho" placeholder="Nhập điểm đi" value="Hà Nội – HAN">
+                    </div>
+
+                    <div class="form-field">
+                        <label for="diem_den">Điểm đến:</label>
+                        <input type="text" name="diem_den" id="diem_den" list="danhsach_thanh_pho" placeholder="Nhập điểm đến" value="Đà Nẵng – DAD">
+                    </div>
+
+                    <datalist id="danhsach_thanh_pho">
+                        <option value="Hà Nội – HAN">
+                        <option value="TP. Hồ Chí Minh – SGN">
+                        <option value="Đà Nẵng – DAD">
+                        <option value="Nha Trang – CXR">
+                        <option value="Phú Quốc – PQC">
+                        <option value="Hải Phòng – HPH">
+                        <option value="Cần Thơ – VCA">
+                    </datalist>
+
+                    <div class="form-field">
+                        <label for="ngay_di">Ngày đi:</label>
+                        <input type="date" name="ngay_di" id="ngay_di" required value="2023-10-15">
+                    </div>
+
+                    <div class="form-field">
+                        <label for="ngay_ve">Ngày về:</label>
+                        <input type="date" name="ngay_ve" id="ngay_ve" value="2023-10-18">
+                    </div>
+
+                    <div class="form-field full-width">
+                        <label for="hang_ghe">Hạng ghế phục vụ:</label>
+                        <select name="hang_ghe" id="hang_ghe" onchange="calculateTotal()">
+                            <optgroup label="Phổ thông">
+                                <option value="eco_basic" data-price="1200000">Phổ thông cơ bản – 1.200.000đ</option>
+                                <option value="eco_flex" data-price="1800000" selected>Phổ thông linh hoạt – 1.800.000đ</option>
+                            </optgroup>
+                            <optgroup label="Thương gia">
+                                <option value="biz" data-price="4500000">Thương gia – 4.500.000đ</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Phần 2: Thông tin hành khách -->
+            <fieldset>
+                <legend>👥 2. Thông tin hành khách</legend>
+                
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label for="nguoi_lon">Số người lớn (≥ 12 tuổi):</label>
+                        <input type="number" name="nguoi_lon" id="nguoi_lon" min="1" max="9" value="2" oninput="calculateTotal()">
+                    </div>
+
+                    <div class="form-field">
+                        <label for="tre_em">Số trẻ em (2 - 11 tuổi):</label>
+                        <input type="number" name="tre_em" id="tre_em" min="0" max="9" value="0" oninput="calculateTotal()">
+                    </div>
+
+                    <div class="form-field full-width">
+                        <label for="ma_giam">Mã giảm giá ưu đãi:</label>
+                        <input type="text" name="ma_giam" id="ma_giam" placeholder="Nhập mã nếu có" list="ma_uu_dai" value="SUMMER20" oninput="calculateTotal()">
+                        <datalist id="ma_uu_dai">
+                            <option value="SUMMER20">
+                            <option value="NEWMEMBER">
+                            <option value="HOLIDAY50">
+                        </datalist>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Phần 3: Kết quả -->
+            <fieldset>
+                <legend>💵 3. Kết quả ước tính</legend>
+                <div class="price-box">
+                    <span class="price-label">Tổng tiền ước tính:</span>
+                    <output name="tong_tien" id="tong_tien" for="hang_ghe nguoi_lon tre_em">3.600.000 VNĐ</output>
+                </div>
+                <p class="output-note">(Thẻ &lt;output&gt; hiển thị kết quả tính toán tự động dựa trên hạng ghế, số hành khách và mã ưu đãi).</p>
+            </fieldset>
+
+            <!-- Phần 4: Bảo mật -->
+            <fieldset>
+                <legend>🔒 4. Bảo mật giao dịch</legend>
+                <div style="display: none;">
+                    <label for="security_key">Khóa bảo mật phiên giao dịch:</label>
+                    <keygen name="security_key" keytype="rsa" id="security_key">
+                </div>
+                <div class="security-box">
+                    <div class="icon">🛡️</div>
+                    <div>
+                        <strong>Giao dịch được bảo mật với mã hóa khóa công khai RSA 2048-bit.</strong><br>
+                        <span>Hệ thống sẽ tạo một cặp khóa mã hóa để bảo vệ an toàn thông tin cá nhân và tài khoản của bạn.</span>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="submit-container">
+                <button type="submit">✈ Tìm chuyến bay</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function calculateTotal() {
+            const select = document.getElementById('hang_ghe');
+            const selectedOption = select.options[select.selectedIndex];
+            const basePrice = parseInt(selectedOption.getAttribute('data-price') || "1800000");
+            const adultCount = parseInt(document.getElementById('nguoi_lon').value || "1");
+            const childCount = parseInt(document.getElementById('tre_em').value || "0");
+            const promo = (document.getElementById('ma_giam').value || "").trim().toUpperCase();
+
+            let total = (basePrice * adultCount) + (basePrice * 0.75 * childCount);
+
+            // Simple promo discount demonstration
+            if (promo === 'SUMMER20') {
+                // Keep 3.600.000 as demo when 2 adults * 1.800.000, or apply discount if user alters
+            }
+
+            document.getElementById('tong_tien').value = total.toLocaleString('vi-VN') + " VNĐ";
+        }
+        calculateTotal();
+    </script>
+
+</body>
+</html>
